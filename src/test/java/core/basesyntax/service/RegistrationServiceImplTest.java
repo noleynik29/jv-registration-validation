@@ -28,6 +28,7 @@ class RegistrationServiceImplTest {
         User user = new User();
         user.setPassword("password123");
         user.setAge(21);
+
         assertThrows(RegistrationException.class, () -> registrationService.register(user));
     }
 
@@ -36,6 +37,7 @@ class RegistrationServiceImplTest {
         User user = new User();
         user.setLogin("login123");
         user.setAge(21);
+
         assertThrows(RegistrationException.class, () -> registrationService.register(user));
     }
 
@@ -45,6 +47,7 @@ class RegistrationServiceImplTest {
         user.setLogin("login123");
         user.setPassword("password123");
         user.setAge(null);
+
         assertThrows(RegistrationException.class, () -> registrationService.register(user));
     }
 
@@ -54,15 +57,17 @@ class RegistrationServiceImplTest {
         user.setLogin("login123");
         user.setPassword("password123");
         user.setAge(-1);
+
         assertThrows(RegistrationException.class, () -> registrationService.register(user));
     }
 
     @Test
-    void register_shortLogin_notOk() {
+    void register_loginLength5_notOk() {
         User user = new User();
-        user.setLogin("log");
+        user.setLogin("login");
         user.setPassword("password123");
         user.setAge(21);
+
         assertThrows(RegistrationException.class, () -> registrationService.register(user));
     }
 
@@ -72,6 +77,7 @@ class RegistrationServiceImplTest {
         user.setLogin("login123");
         user.setPassword("12345");
         user.setAge(21);
+
         assertThrows(RegistrationException.class, () -> registrationService.register(user));
     }
 
@@ -81,6 +87,7 @@ class RegistrationServiceImplTest {
         user.setLogin("login123");
         user.setPassword("password123");
         user.setAge(17);
+
         assertThrows(RegistrationException.class, () -> registrationService.register(user));
     }
 
@@ -90,7 +97,7 @@ class RegistrationServiceImplTest {
         user1.setLogin("login123");
         user1.setPassword("password123");
         user1.setAge(21);
-        registrationService.register(user1);
+        Storage.people.add(user1);
 
         User user2 = new User();
         user2.setLogin("login123");
