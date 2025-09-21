@@ -132,4 +132,24 @@ class RegistrationServiceImplTest {
         assertEquals(user, registered);
         assertEquals(1, Storage.people.size());
     }
+
+    @Test
+    void register_emptyLogin_notOk() {
+        User user = new User();
+        user.setLogin("");
+        user.setPassword("password123");
+        user.setAge(21);
+
+        assertThrows(RegistrationException.class, () -> registrationService.register(user));
+    }
+
+    @Test
+    void register_emptyPassword_notOk() {
+        User user = new User();
+        user.setLogin("login123");
+        user.setPassword("");
+        user.setAge(21);
+
+        assertThrows(RegistrationException.class, () -> registrationService.register(user));
+    }
 }
